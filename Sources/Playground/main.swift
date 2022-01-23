@@ -39,7 +39,7 @@ func demo(_ logger: Logger) {
 //}
 
 let filterLogger = Logger(label: "com.playground.filter") { label in
-    let modifier = DiaryModifiers
+    let modifier = Diary.Modifiers
         .long
         .filter {
             $0.entry.level == .info
@@ -54,7 +54,7 @@ let filterLogger = Logger(label: "com.playground.filter") { label in
 //demo(filterLogger)
 
 let customLogger = Logger(label: "com.playground.custom") { label in
-    let modifier = DiaryModifiers.standard
+    let modifier = Diary.Modifiers.standard
         .map {
             "\($0.entry.message)"
         }
@@ -71,7 +71,7 @@ let customLogger = Logger(label: "com.playground.custom") { label in
 //demo(customLogger)
 
 let matcher = Logger(label: "com.playground.matcher") { label in
-    let modifier = DiaryModifiers.medium
+    let modifier = Diary.Modifiers.medium
         .when(\.entry.level)
         .greaterThanOrEqualTo(.warning)
         .allow
@@ -101,7 +101,7 @@ let matcher = Logger(label: "com.playground.matcher") { label in
 let encodedLogger = Logger(label: "com.playground.encoder") { label in
     DiaryHandler(
         label: label,
-        modifier: DiaryModifiers.json,
+        modifier: Diary.Modifiers.json,
         writer: TerminalWriter.stdout
     )
 }
@@ -122,7 +122,7 @@ let decodedLogger = Logger(label: "com.playground.decoder") { label in
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .iso8601
     
-    let modifier = DiaryModifiers.standard
+    let modifier = Diary.Modifiers.standard
         .encode(using: encoder)
         .decode(EntryClone.self, using: decoder)
         .map { record in
@@ -148,7 +148,7 @@ let encodedLogger2 = Logger(label: "com.playground.encoder2") { label in
     encoder.dateEncodingStrategy = .iso8601
     encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
     
-    let modifier = DiaryModifiers.standard
+    let modifier = Diary.Modifiers.standard
         .append(Custom())
         .encode(using: encoder)
         .compactMap {

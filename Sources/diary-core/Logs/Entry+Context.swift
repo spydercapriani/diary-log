@@ -27,7 +27,7 @@ extension Entry.Metadata: ExpressibleByDictionaryLiteral {
         guard let metadata = metadata else { return nil }
         self.metadata = metadata.reduce(into: [:]) { result, metadata in
             let (key, value) = metadata
-            result[key] = convert(value)
+            result[key] = Helpers.convert(value)
         }
     }
     
@@ -60,7 +60,7 @@ extension Entry.Metadata: Encodable {
         for (k, v) in metadata {
             guard
                 let key = k.base as? String,
-                let encodable = encoded(v)
+                let encodable = AnyEncodable.encoded(v)
             else {
                 continue
             }

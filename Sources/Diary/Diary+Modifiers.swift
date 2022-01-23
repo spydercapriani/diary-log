@@ -1,5 +1,5 @@
 //
-//  DiaryModifiers.swift
+//  Diary+Modifiers.swift
 //  
 //
 //  Created by Danny Gilbert on 1/18/22.
@@ -7,9 +7,12 @@
 
 import Foundation
 
-public enum DiaryModifiers { }
+public extension Diary {
+    
+    struct Modifiers { }
+}
 
-public extension DiaryModifiers {
+public extension Diary.Modifiers {
     
     struct Blank: Modifier {
         public typealias Input = Void
@@ -19,7 +22,7 @@ public extension DiaryModifiers {
     static let standard = Blank()
 }
 
-public extension DiaryModifiers {
+public extension Diary.Modifiers {
     
     static let short = standard
         .map {

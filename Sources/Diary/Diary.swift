@@ -10,41 +10,39 @@ public enum Diary { }
 
 public extension Diary {
     
-    struct Log {
-        public static let console: Logger = .init(label: "com.diary.console") { label in
-            let modifier = DiaryModifiers
-                .medium
-            
-            let stdOut = DiaryHandler(
+    static let console: Logger = .init(label: "com.diary.console") { label in
+        let modifier = Diary.Modifiers
+            .medium
+        
+        let stdOut = DiaryHandler(
+            label: label,
+            modifier: modifier,
+            writer: TerminalWriter.stdout
+        )
+        if #available(macOS 10.12, *) {
+            let os = DiaryHandler(
                 label: label,
                 modifier: modifier,
-                writer: TerminalWriter.stdout
-            )
-            if #available(macOS 10.12, *) {
-                let os = DiaryHandler(
-                    label: label,
-                    modifier: modifier,
-                    writer: OSWriter()
-                )
-                
-                return MultiplexLogHandler(
-                    [
-                        stdOut,
-                        os
-                    ]
-                )
-            } else {
-                return stdOut
-            }
-        }
-        
-        @available(macOS 10.12, *)
-        public static let os: Logger = .init(label: "com.diary.os") { label in
-            DiaryHandler(
-                label: label,
-                modifier: DiaryModifiers.medium,
                 writer: OSWriter()
             )
+            
+            return MultiplexLogHandler(
+                [
+                    stdOut,
+                    os
+                ]
+            )
+        } else {
+            return stdOut
         }
+    }
+    
+    @available(macOS 10.12, *)
+    static let os: Logger = .init(label: "com.diary.os") { label in
+        DiaryHandler(
+            label: label,
+            modifier: Diary.Modifiers.medium,
+            writer: OSWriter()
+        )
     }
 }

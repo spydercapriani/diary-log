@@ -5,8 +5,6 @@
 //  Created by Danny Gilbert on 1/18/22.
 //
 
-import Logging
-
 public extension Logging.Logger.Level {
     
     var icon: String {
@@ -31,7 +29,6 @@ public extension Logging.Logger.Level {
 
 #if canImport(os)
 import os
-@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
 public extension Logging.Logger.Level {
     
     var osLogType: OSLogType {

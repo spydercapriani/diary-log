@@ -35,6 +35,18 @@ let package = Package(
         .target(
             name: "Diary",
             dependencies: [
+                "diary-core"
+            ]
+        ),
+        .target(
+            name: "diary-core",
+            dependencies: [
+                "diary-utilities"
+            ]
+        ),
+        .target(
+            name: "diary-utilities",
+            dependencies: [
                 .product(name: "Logging", package: "swift-log")
             ]
         ),

@@ -67,7 +67,7 @@ extension Entry: Encodable {
         for (k, v) in metadata?.metadata ?? [:] {
             guard
                 let key = k.base as? String,
-                let encodable = encoded(v)
+                let encodable = AnyEncodable.encoded(v)
             else {
                 continue
             }

@@ -18,13 +18,13 @@ public extension AppInfo {
     
     init?() {
         let appName: String? = {
-            let value = bundleInfo(for: Helpers.BundleKey.displayName) ?? bundleInfo(for: Helpers.BundleKey.name)
+            let value = Helpers.bundleInfo(for: Helpers.BundleKey.displayName) ?? Helpers.bundleInfo(for: Helpers.BundleKey.name)
             return value as? String
         }()
         
         guard
-            let build = bundleInfo(for: Helpers.BundleKey.appBuild) as? String,
-            let version = bundleInfo(for: Helpers.BundleKey.appVersion) as? String,
+            let build = Helpers.bundleInfo(for: Helpers.BundleKey.appBuild) as? String,
+            let version = Helpers.bundleInfo(for: Helpers.BundleKey.appVersion) as? String,
             let name = appName
         else { return nil }
         self.build = build

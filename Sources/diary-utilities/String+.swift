@@ -8,7 +8,7 @@
 import Foundation
 
 // https://gist.github.com/dmsl1805/ad9a14b127d0409cf9621dc13d237457
-extension String {
+public extension String {
     func camelCaseToSnakeCase() -> String {
         let acronymPattern = "([A-Z]+)([A-Z][a-z]|[0-9])"
         let normalPattern = "([a-z0-9])([A-Z])"
