@@ -33,10 +33,7 @@ func demo(_ logger: Logger) {
         ]
     )
 }
-//demo(Diary.Log.console)
-//if #available(macOS 10.12, *) {
-//    demo(Diary.Log.os)
-//}
+demo(.diary(label: "com.playground.diary"))
 
 let filterLogger = Logger(label: "com.playground.filter") { label in
     let modifier = Diary.Modifiers
