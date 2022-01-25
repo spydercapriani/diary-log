@@ -52,7 +52,9 @@ public extension Encrypt {
 }
 
 // MARK: - Modifier
-public extension Modifier where Output == Data {
+public extension Modifier where
+    Output == Data
+{
     
     func encrypt(using key: SymmetricKey, cipher: Encrypt.Cipher = .ChaChaPoly) -> Concat<Self, Encrypt> {
         self + .init(key, cipher)

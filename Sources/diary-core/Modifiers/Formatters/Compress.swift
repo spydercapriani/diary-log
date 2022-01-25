@@ -103,7 +103,9 @@ public struct Compress: Modifier {
 }
 
 // MARK: - Modifier
-public extension Modifier where Output == Data {
+public extension Modifier where
+    Output == Data
+{
     
     func compress(_ algorithm: compression_algorithm) -> Concat<Self, Compress> {
         self + .init(algorithm)

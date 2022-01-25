@@ -15,7 +15,9 @@ public protocol Modifier {
 }
 
 // MARK: - Default Behavior
-public extension Modifier where Input == Output {
+public extension Modifier where
+    Input == Output
+{
     func modify(
         _ record: Record<Input>,
         into: @escaping NewRecord<Output>

@@ -40,7 +40,9 @@ public extension Record {
         from: M,
         next: @escaping NewRecord<NewOutput>,
         transform: @escaping ComplexTransformer<M.Output, NewOutput>
-    ) where M.Input == Output {
+    ) where
+        M.Input == Output
+    {
         from.modify(self) { result in
             switch result {
             case let .success(record):

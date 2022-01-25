@@ -6,7 +6,9 @@
 //
 
 // MARK: DSL - StringProtocol
-public extension When where T: StringProtocol {
+public extension When where
+    T: StringProtocol
+{
     
     func contains(_ other: T) -> Matcher<M, T> {
         .init(self) { $0.contains(other) }
@@ -38,7 +40,9 @@ public extension When where T: StringProtocol {
 }
 
 // MARK: - DSL - String
-public extension When where T == String {
+public extension When where
+    T == String
+{
     
     func matches(regEx: String) -> Matcher<M, T> {
         .init(self) {
@@ -48,7 +52,9 @@ public extension When where T == String {
 }
 
 // MARK: DSL - Entry.Metadata
-public extension When where T == Entry.Metadata {
+public extension When where
+    T == Entry.Metadata
+{
     
     func contains(key: AnyHashable) -> Matcher<M, T> {
         .init(self) { $0.metadata.keys.contains(key) }
@@ -67,7 +73,9 @@ public extension When where T == Entry.Metadata {
 }
 
 // MARK: - DSL - Equatable
-public extension When where T: Equatable {
+public extension When where
+    T: Equatable
+{
     
     func equals(_ other: T) -> Matcher<M, T> {
         .init(self) { $0 == other }
@@ -75,7 +83,9 @@ public extension When where T: Equatable {
 }
 
 // MARK: - DSL - Comparable
-public extension When where T: Comparable {
+public extension When where
+    T: Comparable
+{
     
     func greaterThan(_ comp: T) -> Matcher<M, T> {
         .init(self) { $0 > comp }

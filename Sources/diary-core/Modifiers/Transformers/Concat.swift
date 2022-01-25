@@ -5,7 +5,9 @@
 //  Created by Danny Gilbert on 1/18/22.
 //
 
-public struct Concat<A: Modifier, B: Modifier>: Modifier where A.Output == B.Input {
+public struct Concat<A: Modifier, B: Modifier>: Modifier where
+    A.Output == B.Input
+{
     public typealias Input = A.Input
     public typealias Output = B.Output
     
@@ -39,11 +41,15 @@ public struct Concat<A: Modifier, B: Modifier>: Modifier where A.Output == B.Inp
 // MARK: - Modifier - Helpers
 public extension Modifier {
     
-    func concat<Other>(_ other: Other) -> Concat<Self, Other> where Other: Modifier, Other.Input == Output {
+    func concat<M: Modifier>(_ other: M) -> Concat<Self, M> where
+        M.Input == Output
+    {
         .init(self, other)
     }
 }
 
-public func + <A, B>(_ a: A, _ b: B) -> Concat<A, B> where A: Modifier, B: Modifier, B.Input == A.Output {
+public func + <A: Modifier, B: Modifier>(_ a: A, _ b: B) -> Concat<A, B> where
+    B.Input == A.Output
+{
     a.concat(b)
 }

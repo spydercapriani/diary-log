@@ -34,7 +34,9 @@ public struct Prefix<T: RangeReplaceableCollection>: Modifier {
 }
 
 // MARK: - Modifier - RangeReplaceableCollection
-public extension Modifier where Output: RangeReplaceableCollection {
+public extension Modifier where
+    Output: RangeReplaceableCollection
+{
     
     func prefix(
         _ prefix: @escaping BasicTransformer<Output, Output>
@@ -50,7 +52,9 @@ public extension Modifier where Output: RangeReplaceableCollection {
 }
 
 // MARK: - BuiltIn - String
-public extension Modifier where Output == String {
+public extension Modifier where
+    Output == String
+{
     
     var levelEmojiPrefix: Concat<Self, Prefix<Output>> {
         self + Prefix<Output> {

@@ -7,7 +7,10 @@
 
 import Logging
 
-public struct DiaryHandler<M: Modifier, W: DiaryWriter> where M.Input == Void, M.Output == W.Output {
+public struct DiaryHandler<M: Modifier, W: Writer> where
+    M.Output == W.Output,
+    M.Input == Void
+{
     
     public let label: String
     public var metadata: Logger.Metadata

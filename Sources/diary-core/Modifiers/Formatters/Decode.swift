@@ -44,7 +44,9 @@ public struct Decode<Decoder: TopLevelDecoder, T: Decodable>: Modifier {
 }
 
 // MARK: - Modifier
-public extension Modifier where Output == Data {
+public extension Modifier where
+    Output == Data
+{
     
     func decode<Decoder: TopLevelDecoder, T>(_ type: T.Type, using decoder: Decoder) -> Concat<Self, Decode<Decoder, T>> {
         self + .init(decoder, type)

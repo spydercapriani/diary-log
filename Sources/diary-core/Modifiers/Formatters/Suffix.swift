@@ -34,7 +34,9 @@ public struct Suffix<T: RangeReplaceableCollection>: Modifier {
 }
 
 // MARK: - Modifier - RangeReplaceableCollection
-public extension Modifier where Output: RangeReplaceableCollection {
+public extension Modifier where
+    Output: RangeReplaceableCollection
+{
     
     func suffix(
         _ suffix: @escaping BasicTransformer<Output, Output>
@@ -50,7 +52,9 @@ public extension Modifier where Output: RangeReplaceableCollection {
 }
 
 // MARK: - BuiltIn - String
-public extension Modifier where Output == String {
+public extension Modifier where
+    Output == String
+{
     
     var newLine: Concat<Self, Suffix<Output>> {
         self + .init(suffix: "\n")

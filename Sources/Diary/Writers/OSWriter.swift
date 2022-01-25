@@ -8,7 +8,7 @@
 #if canImport(os)
 import os
 
-public struct OSWriter: DiaryWriter {
+public struct OSWriter: Writer {
     
     public func write(_ record: Record<String>) throws {
         let subsystem = record.entry.metadata?["subsystem"] as? String

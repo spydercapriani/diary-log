@@ -5,7 +5,7 @@
 //  Created by Danny Gilbert on 1/14/22.
 //
 
-public struct TerminalWriter: DiaryWriter {
+public struct TerminalWriter: Writer {
     public let stream: TextOutputStream
 
     public init(_ stream: TextOutputStream) {

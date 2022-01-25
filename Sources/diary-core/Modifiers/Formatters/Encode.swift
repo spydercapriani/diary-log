@@ -41,7 +41,9 @@ public struct Encode<Encoder: TopLevelEncoder>: Modifier {
 }
 
 // MARK: - Modifier
-public extension Modifier where Output == Void {
+public extension Modifier where
+    Output == Void
+{
     
     func encode<Encoder: TopLevelEncoder>(using encoder: Encoder) -> Concat<Self, Encode<Encoder>> {
         self + .init(encoder)

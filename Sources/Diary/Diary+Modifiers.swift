@@ -14,14 +14,15 @@ public extension Diary {
 
 public extension Diary.Modifiers {
     
-    struct Blank: Modifier {
+    struct Standard: Modifier {
         public typealias Input = Void
         public typealias Output = Void
     }
     
-    static let standard = Blank()
+    static let standard = Standard()
 }
 
+// MARK: - BuiltIn - Modifiers
 public extension Diary.Modifiers {
     
     static let short = standard
