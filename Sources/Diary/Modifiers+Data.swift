@@ -15,7 +15,7 @@ public extension Modifiers {
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
         return encoder
     }()
-    static let jsonData = entry
+    static let jsonData = base
         .encode(using: jsonEncoder)
         .eraseToAnyModifier()
 }

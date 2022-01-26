@@ -7,7 +7,7 @@
 
 public extension Modifiers {
     
-    static let short = entry
+    static let short = base
         .map {
             "\($0.entry.message)"
         }
@@ -15,7 +15,7 @@ public extension Modifiers {
         .newLine
         .eraseToAnyModifier()
     
-    static let medium = entry
+    static let medium = base
         .map {
             let output = "\($0.entry.message)"
             if let metadata = $0.entry.metadata?.prettyMetadata {
@@ -29,7 +29,7 @@ public extension Modifiers {
         .newLine
         .eraseToAnyModifier()
     
-    static let long = entry
+    static let long = base
         .map {
             let output = "\($0.entry.message)"
             if let metadata = $0.entry.metadata?.prettyMetadata {

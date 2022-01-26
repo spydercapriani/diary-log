@@ -9,19 +9,29 @@ public enum Modifiers { }
 
 public extension Modifiers {
     
-    static let entry = Standard()
+    static let base = Base()
     static let empty = Empty()
 }
 
 public extension Modifiers {
     
+    /// Provides a blank slate to start with.
     struct Empty: Modifier {
         public typealias Input = Void
         public typealias Output = Void
     }
 
-    struct Standard: Modifier {
-        public typealias Input = Entry
+    /// Provides the entry as starting point.
+    struct Base: Modifier {
+        public typealias Input = Void
         public typealias Output = Entry
+        
+        public func modify(
+            _ record: Record<Input>,
+            into: @escaping NewRecord<Output>
+        ) {
+            let initialRecord = Record(record.entry)
+            into(.success(initialRecord))
+        }
     }
 }

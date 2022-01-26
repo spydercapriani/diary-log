@@ -8,6 +8,10 @@
 public struct Record<Output> {
     public var entry: Entry
     public let output: Output
+}
+
+// MARK: - Initializers
+extension Record {
     
     public init(
         _ entry: Entry,
@@ -15,6 +19,15 @@ public struct Record<Output> {
     ) {
         self.entry = entry
         self.output = output
+    }
+    
+    public init(
+        _ entry: Entry
+    ) where
+        Output == Entry
+    {
+        self.entry = entry
+        self.output = entry
     }
 }
 
