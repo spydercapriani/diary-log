@@ -12,7 +12,9 @@ public extension Logger {
         label: String,
         modifier: M,
         _ writer: AnyWriter<M.Output>...
-    ) {
+    ) where
+        M.Input == Void
+    {
         self = Logger(label: label) { label in
             let handlers = writer.map { writer in
                 DiaryHandler(
@@ -30,6 +32,7 @@ public extension Logger {
         modifier: M,
         writer: W
     ) where
+        M.Input == Void,
         M.Output == W.Output
     {
         self.init(

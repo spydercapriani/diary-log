@@ -8,6 +8,7 @@
 import Logging
 
 public struct DiaryHandler<M: Modifier, W: Writer>: LogHandler where
+    M.Input == Void,
     M.Output == W.Output
 {
     
@@ -41,52 +42,8 @@ extension DiaryHandler {
     }
 }
 
-// MARK: - LogHandler - Standard
-extension DiaryHandler where
-    M.Input == Entry
-{
-    
-    public func log(
-        level: Logger.Level,
-        message: Logger.Message,
-        metadata: Logger.Metadata?,
-        source: String,
-        file: String,
-        function: String,
-        line: UInt
-    ) {
-        let entry = Entry(
-            label: label,
-            level: level,
-            message: message,
-            source: source,
-            file: file,
-            function: function,
-            line: line,
-            metadata: metadata
-        )
-        let record = Record(entry, entry)
-        modifier.modify(record) { result in
-            switch result {
-            case let .success(newRecord):
-                do {
-                    try newRecord.map {
-                        try writer.write($0)
-                    }
-                } catch {
-                    errorHandler?(error)
-                }
-            case let .failure(error):
-                errorHandler?(error)
-            }
-        }
-    }
-}
-
-// MARK: - LogHandler - Custom
-extension DiaryHandler where
-    M.Input == Void
-{
+// MARK: - LogHandler
+extension DiaryHandler {
     public func log(
         level: Logger.Level,
         message: Logger.Message,
