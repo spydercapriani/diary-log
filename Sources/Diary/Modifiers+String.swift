@@ -1,22 +1,20 @@
 //
-//  BuiltIn+Modifiers.swift
+//  Modifiers+String.swift
 //  
 //
 //  Created by Danny Gilbert on 1/26/22.
 //
 
-import Foundation
-
-public extension BuiltIn.Modifiers {
+public extension Modifiers {
     
-    static let short = standard
+    static let short = entry
         .map {
             "\($0.entry.message)"
         }
         .levelInfoPrefix
         .newLine
     
-    static let medium = standard
+    static let medium = entry
         .map {
             let output = "\($0.entry.message)"
             if let metadata = $0.entry.metadata?.prettyMetadata {
@@ -29,7 +27,7 @@ public extension BuiltIn.Modifiers {
         .levelEmojiPrefix
         .newLine
     
-    static let long = standard
+    static let long = entry
         .map {
             let output = "\($0.entry.message)"
             if let metadata = $0.entry.metadata?.prettyMetadata {
@@ -44,14 +42,7 @@ public extension BuiltIn.Modifiers {
         .levelEmojiPrefix
         .newLine
     
-    private static let jsonEncoder: JSONEncoder = {
-       let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
-        return encoder
-    }()
-    static let json = standard
-        .encode(using: jsonEncoder)
+    static let jsonString = jsonData
         .compactMap {
             String(bytes: $0.output, encoding: .utf8)
         }

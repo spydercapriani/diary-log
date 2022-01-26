@@ -36,7 +36,7 @@ func demo(_ logger: Logger) {
 demo(diary)
 
 let filterLogger = Logger(label: "com.playground.filter") { label in
-    let modifier = BuiltIn.Modifiers.long
+    let modifier = Modifiers.long
         .filter {
             $0.entry.level == .info
         }
@@ -50,7 +50,7 @@ let filterLogger = Logger(label: "com.playground.filter") { label in
 //demo(filterLogger)
 
 let customLogger = Logger(label: "com.playground.custom") { label in
-    let modifier = BuiltIn.Modifiers.standard
+    let modifier = Modifiers.entry
         .map {
             "\($0.entry.message)"
         }
@@ -67,7 +67,7 @@ let customLogger = Logger(label: "com.playground.custom") { label in
 //demo(customLogger)
 
 let matcher = Logger(label: "com.playground.matcher") { label in
-    let modifier = BuiltIn.Modifiers.medium
+    let modifier = Modifiers.medium
         .when(\.entry.level)
         .greaterThanOrEqualTo(.warning)
         .allow
@@ -97,7 +97,7 @@ let matcher = Logger(label: "com.playground.matcher") { label in
 let encodedLogger = Logger(label: "com.playground.encoder") { label in
     DiaryHandler(
         label: label,
-        modifier: BuiltIn.Modifiers.json,
+        modifier: Modifiers.jsonString,
         writer: TerminalWriter.stdout
     )
 }
@@ -118,7 +118,7 @@ let decodedLogger = Logger(label: "com.playground.decoder") { label in
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .iso8601
     
-    let modifier = BuiltIn.Modifiers.standard
+    let modifier = Modifiers.entry
         .encode(using: encoder)
         .decode(EntryClone.self, using: decoder)
         .map { record in
@@ -144,7 +144,7 @@ let encodedLogger2 = Logger(label: "com.playground.encoder2") { label in
     encoder.dateEncodingStrategy = .iso8601
     encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
     
-    let modifier = BuiltIn.Modifiers.standard
+    let modifier = Modifiers.entry
         .append(Custom())
         .encode(using: encoder)
         .compactMap {

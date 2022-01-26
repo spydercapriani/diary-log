@@ -13,7 +13,7 @@ public extension Logger {
     static func diary(label: String) -> Logger {
         Logger(
             label: label,
-            modifier: BuiltIn.Modifiers.medium,
+            modifier: Modifiers.medium,
             TerminalWriter.stdout,
             OSWriter()
         )
