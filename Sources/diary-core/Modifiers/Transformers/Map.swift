@@ -33,3 +33,19 @@ public extension Modifier {
         self + .init(transform)
     }
 }
+
+public extension Modifier where
+    Output == Entry
+{
+    
+    func format<T: StringProtocol>(
+        _ keyPaths: KeyPath<Output, T>...,
+        separator: String = " ▶ "
+    ) -> Concat<Self, Map<Output, String>> {
+        self + .init { record in
+            keyPaths
+                .map { record.entry[keyPath: $0] }
+                .joined(separator: separator)
+        }
+    }
+}

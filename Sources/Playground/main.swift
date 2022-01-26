@@ -9,6 +9,10 @@ import Diary
 import Logging
 import Foundation
 
+let errorHandler: ((Error) -> Void) = { error in
+    print("There was an error: \(error)")
+}
+
 func demo(_ logger: Logger) {
     logger.trace("trace")
     logger.debug("debug")
@@ -150,14 +154,22 @@ let encodedLogger2 = Logger(label: "com.playground.encoder2") { label in
     return DiaryHandler(
         label: label,
         modifier: modifier,
-        writer: TerminalWriter.stdout
+        writer: TerminalWriter.stdout,
+        errorHandler: errorHandler
     )
 }
 
-demo(diary)
+//demo(diary)
 //demo(filterLogger)
 //demo(customLogger)
 //demo(matcher)
 //demo(encodedLogger)
 //demo(decodedLogger)
 //demo(encodedLogger2)
+//demo(.diary(label: "com.playground.short", modifier: Modifiers.short))
+//demo(.diary(label: "com.playground.medium", modifier: Modifiers.medium))
+demo(.diary(label: "com.playground.long", modifier: Modifiers.long))
+
+//var modifiedDiary = Logger.diary(label: "com.playground.metadata", modifier: Modifiers.jsonString)
+//modifiedDiary[metadataKey: "app_name"] = "MyApp"
+//demo(modifiedDiary)

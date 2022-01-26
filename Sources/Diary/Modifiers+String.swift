@@ -8,47 +8,52 @@
 public extension Modifiers {
     
     static let short = base
-        .map {
-            "\($0.entry.message)"
-        }
-        .levelInfoPrefix
+        .format(
+            \.message.description
+        )
+        .separator
+        .prefix(
+            \.level.emoji
+        )
         .newLine
         .eraseToAnyModifier()
     
     static let medium = base
-        .map {
-            let output = "\($0.entry.message)"
-            if let metadata = $0.entry.metadata?.prettyMetadata {
-                return output + "\n" + metadata
-            } else {
-                return output
-            }
-        }
+        .format(
+            \.message.description
+        )
         .separator
-        .levelEmojiPrefix
+        .prefix(
+            \.level.emoji,
+            \.level.rawValue.localizedUppercase,
+            \.label,
+            \.source
+        )
         .newLine
         .eraseToAnyModifier()
     
     static let long = base
         .map {
-            let output = "\($0.entry.message)"
+            let output = "Message: \($0.entry.message)"
             if let metadata = $0.entry.metadata?.prettyMetadata {
-                return output + "\n" + metadata
+                return "\n" + output + "\nMetadata:\n" + metadata
             } else {
-                return output
+                return "\n" + output
             }
         }
-        .separator
-        .levelInfoPrefix
-        .separator
-        .levelEmojiPrefix
+        .prefix(
+            \.level.emoji,
+            \.level.rawValue.localizedUppercase,
+            \.label,
+            \.source,
+            \.function,
+            \.line.description
+        )
         .newLine
         .eraseToAnyModifier()
     
     static let jsonString = jsonData
-        .compactMap {
-            String(bytes: $0.output, encoding: .utf8)
-        }
+        .stringValue()
         .commaSeparated
         .newLine
         .eraseToAnyModifier()

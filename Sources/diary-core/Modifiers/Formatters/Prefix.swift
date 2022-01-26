@@ -56,19 +56,18 @@ public extension Modifier where
     Output == String
 {
     
-    var levelEmojiPrefix: Concat<Self, Prefix<Output>> {
-        self + Prefix<Output> {
-            "\($0.entry.level.emoji)"
+    func prefix<T: StringProtocol>(
+        _ keyPaths: KeyPath<Entry, T>...,
+        separator: String = " ▶ "
+    ) -> Concat<Self, Prefix<Output>> {
+        self + .init { record in
+            keyPaths
+                .map { record.entry[keyPath: $0] }
+                .joined(separator: separator)
         }
     }
     
     var separator: Concat<Self, Prefix<Output>> {
         self + .init(prefix: " ▶ ")
-    }
-    
-    var levelInfoPrefix: Concat<Self, Prefix<Output>> {
-        self + Prefix<Output> {
-            "[\($0.entry.level.rawValue.uppercased())]"
-        }
     }
 }
