@@ -15,6 +15,11 @@ public extension Diary {
 public extension Diary.Modifiers {
     
     struct Standard: Modifier {
+        public typealias Input = Entry
+        public typealias Output = Entry
+    }
+    
+    struct Empty: Modifier {
         public typealias Input = Void
         public typealias Output = Void
     }

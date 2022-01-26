@@ -25,8 +25,7 @@ public extension Logger {
         modifier: M,
         _ writer: W
     ) where
-        M.Output == W.Output,
-        M.Input == Void
+        M.Output == W.Output
     {
         self = Logger(label: label) {
             DiaryHandler(
@@ -48,8 +47,7 @@ public extension Logger {
         _ b: B
     ) where
         M.Output == A.Output,
-        A.Output == B.Output,
-        M.Input == Void
+        A.Output == B.Output
     {
 
         self = Logger(label: label) { label -> LogHandler in
@@ -84,8 +82,7 @@ public extension Logger {
     ) where
         M.Output == A.Output,
         A.Output == B.Output,
-        B.Output == C.Output,
-        M.Input == Void
+        B.Output == C.Output
     {
 
         self = Logger(label: label) { label -> LogHandler in
@@ -129,8 +126,7 @@ public extension Logger {
         M.Output == A.Output,
         A.Output == B.Output,
         B.Output == C.Output,
-        C.Output == D.Output,
-        M.Input == Void
+        C.Output == D.Output
     {
 
         self = Logger(label: label) { label -> LogHandler in
