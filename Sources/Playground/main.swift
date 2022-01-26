@@ -33,7 +33,6 @@ func demo(_ logger: Logger) {
         ]
     )
 }
-demo(diary)
 
 let filterLogger = Logger(label: "com.playground.filter") { label in
     let modifier = Modifiers.long
@@ -47,10 +46,9 @@ let filterLogger = Logger(label: "com.playground.filter") { label in
         writer: TerminalWriter.stdout
     )
 }
-//demo(filterLogger)
 
 let customLogger = Logger(label: "com.playground.custom") { label in
-    let modifier = Modifiers.entry
+    let modifier = Modifiers.base
         .map {
             "\($0.entry.message)"
         }
@@ -64,7 +62,6 @@ let customLogger = Logger(label: "com.playground.custom") { label in
         writer: TerminalWriter.stdout
     )
 }
-//demo(customLogger)
 
 let matcher = Logger(label: "com.playground.matcher") { label in
     let modifier = Modifiers.medium
@@ -92,7 +89,6 @@ let matcher = Logger(label: "com.playground.matcher") { label in
         writer: TerminalWriter.stdout
     )
 }
-//demo(matcher)
 
 let encodedLogger = Logger(label: "com.playground.encoder") { label in
     DiaryHandler(
@@ -101,7 +97,6 @@ let encodedLogger = Logger(label: "com.playground.encoder") { label in
         writer: TerminalWriter.stdout
     )
 }
-//demo(encodedLogger)
 
 let decodedLogger = Logger(label: "com.playground.decoder") { label in
     struct EntryClone: Decodable {
@@ -118,11 +113,11 @@ let decodedLogger = Logger(label: "com.playground.decoder") { label in
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .iso8601
     
-    let modifier = Modifiers.entry
+    let modifier = Modifiers.base
         .encode(using: encoder)
         .decode(EntryClone.self, using: decoder)
         .map { record in
-            "\(record.output.message) - \(record.output.level)"
+            "\(record.entry.message) - \(record.entry.level)"
         }
         .newLine
     
@@ -132,7 +127,6 @@ let decodedLogger = Logger(label: "com.playground.decoder") { label in
         writer: TerminalWriter.stdout
     )
 }
-//demo(decodedLogger)
 
 let encodedLogger2 = Logger(label: "com.playground.encoder2") { label in
     struct Custom: Context {
@@ -144,7 +138,7 @@ let encodedLogger2 = Logger(label: "com.playground.encoder2") { label in
     encoder.dateEncodingStrategy = .iso8601
     encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
     
-    let modifier = Modifiers.entry
+    let modifier = Modifiers.base
         .append(Custom())
         .encode(using: encoder)
         .compactMap {
@@ -159,8 +153,11 @@ let encodedLogger2 = Logger(label: "com.playground.encoder2") { label in
         writer: TerminalWriter.stdout
     )
 }
-//demo(encodedLogger2)
 
-var logger = diary
-logger[metadataKey: "path"] = "/me"
-logger.debug("hi")
+demo(diary)
+//demo(filterLogger)
+//demo(customLogger)
+//demo(matcher)
+//demo(encodedLogger)
+//demo(decodedLogger)
+//demo(encodedLogger2)
