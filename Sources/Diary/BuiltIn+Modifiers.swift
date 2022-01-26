@@ -1,39 +1,19 @@
 //
-//  Diary+Modifiers.swift
+//  BuiltIn+Modifiers.swift
 //  
 //
-//  Created by Danny Gilbert on 1/18/22.
+//  Created by Danny Gilbert on 1/26/22.
 //
 
 import Foundation
 
-public extension Diary {
-    
-    struct Modifiers { }
-}
-
-public extension Diary.Modifiers {
-    
-    struct Standard: Modifier {
-        public typealias Input = Entry
-        public typealias Output = Entry
-    }
-    
-    struct Empty: Modifier {
-        public typealias Input = Void
-        public typealias Output = Void
-    }
-    
-    static let standard = Standard()
-}
-
-// MARK: - BuiltIn - Modifiers
-public extension Diary.Modifiers {
+public extension BuiltIn.Modifiers {
     
     static let short = standard
         .map {
             "\($0.entry.message)"
         }
+        .levelInfoPrefix
         .newLine
     
     static let medium = standard
@@ -78,3 +58,4 @@ public extension Diary.Modifiers {
         .commaSeparated
         .newLine
 }
+
