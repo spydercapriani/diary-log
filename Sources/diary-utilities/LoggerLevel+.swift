@@ -10,7 +10,7 @@ public extension Logging.Logger.Level {
     var emoji: String {
         switch self {
         case .trace:
-            return "◼️"
+            return "◾️"
         case .debug:
             return "◽️"
         case .info:
