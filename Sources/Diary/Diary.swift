@@ -10,12 +10,17 @@ public var diary: Logger = .diary(label: "diary")
 
 // MARK: - Defaults
 public extension Logger {
-    static func diary(label: String) -> Logger {
+    static func diary(
+        label: String,
+        modifier: AnyModifier<Entry,String> = Modifiers.medium
+    ) -> Logger {
         Logger(
             label: label,
-            modifier: Modifiers.medium,
-            TerminalWriter.stdout,
-            OSWriter()
+            modifier: modifier,
+            writers: [
+                TerminalWriter.stdout.eraseToAnyWriter(),
+                OSWriter().eraseToAnyWriter()
+            ]
         )
     }
 }

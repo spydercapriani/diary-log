@@ -13,6 +13,7 @@ public extension Modifiers {
         }
         .levelInfoPrefix
         .newLine
+        .eraseToAnyModifier()
     
     static let medium = entry
         .map {
@@ -26,6 +27,7 @@ public extension Modifiers {
         .separator
         .levelEmojiPrefix
         .newLine
+        .eraseToAnyModifier()
     
     static let long = entry
         .map {
@@ -41,6 +43,7 @@ public extension Modifiers {
         .separator
         .levelEmojiPrefix
         .newLine
+        .eraseToAnyModifier()
     
     static let jsonString = jsonData
         .compactMap {
@@ -48,5 +51,6 @@ public extension Modifiers {
         }
         .commaSeparated
         .newLine
+        .eraseToAnyModifier()
 }
 

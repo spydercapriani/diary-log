@@ -17,4 +17,5 @@ public extension Modifiers {
     }()
     static let jsonData = entry
         .encode(using: jsonEncoder)
+        .eraseToAnyModifier()
 }
