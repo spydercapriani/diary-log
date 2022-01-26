@@ -17,10 +17,8 @@ public extension Logger {
         Logger(
             label: label,
             modifier: modifier,
-            writers: [
-                TerminalWriter.stdout.eraseToAnyWriter(),
-                OSWriter().eraseToAnyWriter()
-            ]
+            TerminalWriter.stdout.eraseToAnyWriter(),
+            OSWriter().eraseToAnyWriter()
         )
     }
 }
