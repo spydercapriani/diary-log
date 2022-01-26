@@ -21,7 +21,7 @@ extension JSONEncoder: TopLevelEncoder { }
 extension PropertyListEncoder: TopLevelEncoder { }
 #endif
 
-public struct Encode<Encoder: TopLevelEncoder, Input: Encodable>: Modifier {
+public struct Encode<Input: Encodable, Encoder: TopLevelEncoder>: Modifier {
     public typealias Output = Encoder.Output
     
     public let encoder: Encoder
@@ -41,10 +41,10 @@ public struct Encode<Encoder: TopLevelEncoder, Input: Encodable>: Modifier {
 
 // MARK: - Modifier
 public extension Modifier where
-    Input: Encodable
+    Output: Encodable
 {
     
-    func encode<Encoder: TopLevelEncoder>(using encoder: Encoder) -> Concat<Self, Encode<Encoder, Input>> {
+    func encode<Encoder: TopLevelEncoder>(using encoder: Encoder) -> Concat<Self, Encode<Output, Encoder>> {
         self + .init(encoder)
     }
 }

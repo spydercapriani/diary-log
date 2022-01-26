@@ -21,22 +21,21 @@ extension JSONDecoder: TopLevelDecoder { }
 extension PropertyListDecoder: TopLevelDecoder { }
 #endif
 
-public struct Decode<Decoder: TopLevelDecoder, T: Decodable>: Modifier {
+public struct Decode<Decoder: TopLevelDecoder, Output: Decodable>: Modifier {
     public typealias Input = Decoder.Input
-    public typealias Output = T
     
     public let decoder: Decoder
-    public let type: T.Type
+    public let type: Output.Type
     
     public init(
         _ decoder: Decoder,
-        _ type: T.Type
+        _ type: Output.Type
     ) {
         self.decoder = decoder
         self.type = type
     }
     
-    public func modify(_ record: Record<Decoder.Input>, into: @escaping NewRecord<T>) {
+    public func modify(_ record: Record<Input>, into: @escaping NewRecord<Output>) {
         record.modify(next: into) { record in
             try decoder.decode(type, from: record.output)
         }
