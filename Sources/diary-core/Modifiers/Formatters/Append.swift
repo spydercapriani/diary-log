@@ -5,8 +5,8 @@
 //  Created by Danny Gilbert on 1/22/22.
 //
 
-public struct Append<C: Context, Input>: Modifier {
-    public typealias Output = Input
+public struct Append<C: Context>: Modifier {
+    public typealias Output = Entry
     
     private let context: C
     
@@ -17,23 +17,25 @@ public struct Append<C: Context, Input>: Modifier {
     }
     
     public func modify(_ record: Record<Input>, into: @escaping NewRecord<Output>) {
-        var updatedRecord = record
-        if var existingMetadata = updatedRecord.entry.metadata {
+        var updatedEntry = record.entry
+        if var existingMetadata = updatedEntry.metadata {
             existingMetadata[C.key] = context
-            updatedRecord.entry.metadata = existingMetadata
+            updatedEntry.metadata = existingMetadata
         } else {
-            updatedRecord.entry.metadata = [C.key: context]
+            updatedEntry.metadata = [C.key: context]
         }
-        into(.success(updatedRecord))
+        into(.success(.init(updatedEntry, updatedEntry)))
     }
 }
 
 // MARK: - Modifier
-public extension Modifier {
+public extension Modifier where
+    Output == Entry
+{
     
     func append<C: Context>(
         _ context: C
-    ) -> Concat<Self, Append<C, Output>> {
+    ) -> Concat<Self, Append<C>> {
         self + .init(context)
     }
 }
