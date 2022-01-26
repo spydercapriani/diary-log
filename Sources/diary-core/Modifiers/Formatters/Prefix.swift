@@ -58,7 +58,7 @@ public extension Modifier where
     
     var levelEmojiPrefix: Concat<Self, Prefix<Output>> {
         self + Prefix<Output> {
-            "\($0.entry.level.icon)"
+            "\($0.entry.level.emoji)"
         }
     }
     

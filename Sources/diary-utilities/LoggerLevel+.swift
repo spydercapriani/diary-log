@@ -7,7 +7,7 @@
 
 public extension Logging.Logger.Level {
     
-    var icon: String {
+    var emoji: String {
         switch self {
         case .trace:
             return "◼️"
