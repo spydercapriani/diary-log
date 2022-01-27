@@ -6,13 +6,13 @@
 //
 
 // Global Default Diary
-public var diary: Logger = .diary(label: "diary")
+public var Diary: Logger = .diary(label: "diary")
 
 // MARK: - Defaults
 public extension Logger {
     static func diary(
         label: String,
-        modifier: AnyModifier<Void, String> = Modifiers.medium
+        modifier: AnyModifier<Void, String> = Modifiers.short
     ) -> Logger {
         Logger(
             label: label,

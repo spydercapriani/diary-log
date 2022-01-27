@@ -157,13 +157,13 @@ let encodedLogger2 = Logger(label: "com.playground.encoder2") { label in
     )
 }
 
-//demo(diary)
+demo(Diary)
 //demo(filterLogger)
 //demo(customLogger)
 //demo(matcher)
 //demo(encodedLogger)
 //demo(decodedLogger)
-demo(encodedLogger2)
+//demo(encodedLogger2)
 //demo(.diary(label: "com.playground.short", modifier: Modifiers.short))
 //demo(.diary(label: "com.playground.medium", modifier: Modifiers.medium))
 //demo(.diary(label: "com.playground.long", modifier: Modifiers.long))
