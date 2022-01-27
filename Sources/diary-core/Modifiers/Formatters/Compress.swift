@@ -107,7 +107,7 @@ public extension Modifier where
     Output == Data
 {
     
-    func compress(_ algorithm: compression_algorithm) -> Concat<Self, Compress> {
+    func compress(using algorithm: compression_algorithm) -> Concat<Self, Compress> {
         self + .init(algorithm)
     }
 }

@@ -145,9 +145,7 @@ let encodedLogger2 = Logger(label: "com.playground.encoder2") { label in
     let modifier = Modifiers.base
         .append(Custom())
         .encode(using: encoder)
-        .compactMap {
-            String(bytes: $0.output, encoding: .utf8)
-        }
+        .stringValue()
         .commaSeparated
         .newLine
     
@@ -165,10 +163,10 @@ let encodedLogger2 = Logger(label: "com.playground.encoder2") { label in
 //demo(matcher)
 //demo(encodedLogger)
 //demo(decodedLogger)
-//demo(encodedLogger2)
+demo(encodedLogger2)
 //demo(.diary(label: "com.playground.short", modifier: Modifiers.short))
 //demo(.diary(label: "com.playground.medium", modifier: Modifiers.medium))
-demo(.diary(label: "com.playground.long", modifier: Modifiers.long))
+//demo(.diary(label: "com.playground.long", modifier: Modifiers.long))
 
 //var modifiedDiary = Logger.diary(label: "com.playground.metadata", modifier: Modifiers.jsonString)
 //modifiedDiary[metadataKey: "app_name"] = "MyApp"
